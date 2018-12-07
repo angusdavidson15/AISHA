@@ -1,0 +1,58 @@
+import tkinter as tk #tkinter used for visualization
+
+#Resolution of raspberry pi display
+#7 inch display
+
+width=800 #width of display
+height=600 #height of display
+
+
+class HomePage_GUI(): #class for multiple functions
+
+    def __init__(self,master): #main function for GUI
+
+        self.master=master
+        self.master.configure(bg='#ffffff') #HEX code for background colour
+        self.master.title("AISHA") #Header
+        self.master.option_add('*Font','Georgin 18') #Button font style
+        self.master.option_add('*Label.Font','helvetica 20 bold')#Header font style
+        self.master.option_add('Background','#ffffff') #GUI Background Colour
+        self.master.geometry('800x600') #resolution of GUI window
+        
+
+        #search
+        search = tk.Frame(master)
+        search.config(bg='#ffffff') #background colour behind welcome text
+        search_title = tk.Label(search)
+        search_title.config(text='Welcome to AISHA', font=('Arial',30), fg="white", bg="black")        
+        search_title.grid(row=1, column=1)
+        search.grid(row=12, column=1, sticky='ew')
+
+        self.search = tk.StringVar(master)
+        self.text_find = tk.Entry(master, textvariable=self.search)
+        self.text_find.config(width=25)
+        self.text_find.grid(row=13, column=1)
+        search=self.text_find.get()
+
+        self.level = tk.StringVar(master)
+        self.text_level = tk.Entry(master, textvariable=self.level)
+        self.text_level.config(width=25)
+        self.text_level.grid(row=15, column=1)
+        level=self.text_level.get()
+
+        btn2 = tk.Button(master, height=1, width=5, bg="red")    
+        btn2.config(text = 'Find', highlightcolor='red')
+        btn2.grid(row = '13', column = '5')
+        btn2.bind('<Button>', self.Find_btn)
+
+
+    def Find_btn(self,event):
+        results=self.text_find.get()
+        level=self.text_level.get()    
+        
+
+
+if __name__ == "__main__":
+     root=tk.Tk()
+     tutor_app=HomePage_GUI(root) #runs every function under class
+     root.mainloop()
