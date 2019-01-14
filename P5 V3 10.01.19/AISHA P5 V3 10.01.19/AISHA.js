@@ -2,6 +2,7 @@ var ecclipseY = 150;
 var value = 0; //storing int for startMenu
 var pageint = 0; //stores int for which page you are on.
 var startpage = false;
+var chooseScreen = false;
 var personpage = false;
 var placepage = false;
 var locateper = false;
@@ -14,6 +15,9 @@ var x = 100;
 var y = 100
 var icon = [];// stores the icons to be loaded.
 var LOGOimg; // stores the logo image file.
+
+var button_choose;
+var button_Locate;
 
 var backbutton;
 var button_1;
@@ -58,7 +62,8 @@ startpage = true;
 function setup() {
     var displayWidth = 800;
     var displayHeight = 600;
-
+  button_choose = createButton('choose');
+  button_Locate = createButton('Locate');
   backbutton = createButton('Back');
   button_1 = createButton('Person_1Dad');
   button_2 = createButton('Person_2Mom');
@@ -68,6 +73,8 @@ function setup() {
 	button_6 = createButton('Shopping');
   button_7 = createButton('Appointment');
   button_8 = createButton('WalkingTheDog');
+  button_choose.hide();
+  button_Locate.hide();
   backbutton.hide();
   button_1.hide();
   button_2.hide();
@@ -80,7 +87,6 @@ function setup() {
 
 
 }
-
 function draw() {
 
   var centerX = createCanvas(800, 600);
@@ -92,15 +98,18 @@ function draw() {
 
   if (startpage === true)
   {
-    startMenu();
-   // personpage = false;
-   // placepage = false;
+    startScreen();
   }
+
+  if (chooseScreen === true)
+   {
+      MainMenu();
+   }
 
   if (personpage === true)
   {
     secondScreen();
-    backbutton.hide();
+    backbutton.show();
     button_1.show();
     button_2.show();
     button_3.show();
@@ -126,23 +135,28 @@ function draw() {
     rect(25, 25, 50, 50);
 }
 
-function startMenu() {
-    background(1,150,200);
-    textSize(50);
-    //text('Welcome to AISHA', 200, 300); // original text logo location.
-    image(LOGOimg, 175, 220); // dispays the logo at given location.
-    textSize(20);
-    //var startBtn = document.getElementById('startBtn');
 
-}
 function mousePressed()
 {
 
     startpage = false;
-    personpage = true;
+    chooseScreen = true;
 
 }
+function ChoosePage(){
 
+    chooseScreen = false;
+    personpage = true;
+  	button_choose.hide();
+  	button_Locate.hide();
+
+  }
+function locatePage(){
+
+    chooseScreen = false;
+    locateper = true;
+
+  }
 function page1(){
   	b1 = 1;
     personpage = false;
@@ -163,32 +177,74 @@ function page3(){
   }
 function confirm1(){
   	b4 = 1;
-    locateper = true;
+    chooseScreen = true;
   	placepage = false;
   }
 function confirm2(){
   	b5 = 1;
-    locateper = true;
+    chooseScreen = true;
   	placepage = false;
   }
 function confirm3(){
   	b6 = 1;
-    locateper = true;
+    chooseScreen = true;
   	placepage = false;
   }
 function confirm4(){
   	b7 = 1;
-    locateper = true;
+    chooseScreen = true;
   	placepage = false;
   }
 function confirm5(){
   	b8 = 1;
-    locateper = true;
+    chooseScreen = true;
   	placepage = false;
   }
 
+function startScreen() {
+    background(1,150,200);
+    textSize(50);
+    //text('Welcome to AISHA', 200, 300); // original text logo location.
+    image(LOGOimg, 175, 220); // dispays the logo at given location.
+    textSize(20);
+    //var startBtn = document.getElementById('startBtn');
+
+}
+
+function MainMenu(){
+  background(1,150,200);
+  backbutton.hide();
+  button_1.hide();
+  button_2.hide();
+  button_3.hide();
+  button_4.hide();
+  button_5.hide();
+  button_6.hide();
+  button_7.hide();
+  button_8.hide();
+  	image(LOGOimg, 175, 10); // dispays the logo at given location.
+  	fill(50, 50, 50);
+    strokeWeight(2);
+    stroke(10)
+   // ellipse(300, 150, 100, 100);
+  	button_Locate.show();
+  	button_choose.show();
+		button_choose.position(100, 205);
+		button_choose.mousePressed(ChoosePage);
+
+
+	  button_Locate.position(250, 205);
+ 		button_Locate.mousePressed(locatePage);
+
+  	var fps = parseInt(frameRate(), 10);
+    textSize(20);
+    text('frameRate: ' + fps, 10, 590);
+}
+
 function secondScreen() {
     background(1, 150, 200);
+  	button_Locate.hide();
+  	button_choose.hide();
   	button_4.hide();
     button_5.hide();
     button_6.hide();
@@ -238,6 +294,8 @@ function secondScreen() {
 
 function ThirdScreen() {
   	placesbuttons();
+    button_Locate.hide();
+  	button_choose.hide();
     background(1, 150, 200);
     textSize(50);
     text('where are you going', 180, 50);
@@ -262,6 +320,8 @@ function ThirdScreen() {
 
 function locate()
 {
+  	button_choose.hide();
+  	button_Locate.hide();
   	button_1.hide();
     button_2.hide();
     button_3.hide();
@@ -280,15 +340,15 @@ function locate()
    // ellipse(150, 150, 100, 100);
   if (b1 === 1)
       {
-    			image(icon[0], 100, 100,s,s);
+    			image(icon[0], 200, 100,s,s);
       }
   if (b2 === 1)
       {
-    			image(icon[1], 150, 100,s,s);
+    			image(icon[1], 500, 100,s,s);
       }
   if (b3 === 1)
       {
-    			image(icon[2], 200, 100,s,s);
+    			image(icon[2], 350, 100,s,s);
       }
   if (b4 === 1)
       {
